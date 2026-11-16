@@ -1,0 +1,36 @@
+{
+  "slot": "1",
+  "issue": "https://github.com/Fractal-Neurons/pacta/issues/21",
+  "chainId": "1",
+  "contractAddress": "0xb72d8F5213b3E52FAf13Aa074b03C4788e78349F",
+  "protocol": "stake.link liquid",
+  "tvlReference": "https://defillama.com/protocol/stake.link-liquid",
+  "pactaSlug": null,
+  "blockNumber": "26421402",
+  "blockHash": "0x2f3989973dd4c3d9a7666a9b0045243b72253c5322738555ea69c9e03f2aa188",
+  "priorPin": null,
+  "castCommands": [
+    "cast call 0xb72d8F5213b3E52FAf13Aa074b03C4788e78349F \"hasRole(bytes32,address)\" 0xd8aa0f3194971a2a116679f7c2090f6939c8d4e01a2a8d7e41d55e5351469e63 0xFFb91C736e1BCB2E06188198D70D790b25990783 --block 26421402 --rpc-url https://rpc.mevblocker.io",
+    "cast call 0xb72d8F5213b3E52FAf13Aa074b03C4788e78349F \"hasRole(bytes32,address)\" 0xd8aa0f3194971a2a116679f7c2090f6939c8d4e01a2a8d7e41d55e5351469e63 0xFFb91C736e1BCB2E06188198D70D790b25990783 --block 26421402 --rpc-url https://gateway.tenderly.co/public/mainnet",
+    "cast call 0xB351EC0FEaF4B99FdFD36b484d9EC90D0422493D \"getThreshold()(uint256)\" --block 26421402 --rpc-url https://rpc.mevblocker.io",
+    "cast call 0xB351EC0FEaF4B99FdFD36b484d9EC90D0422493D \"getThreshold()(uint256)\" --block 26421402 --rpc-url https://gateway.tenderly.co/public/mainnet"
+  ],
+  "rpcOutputs": {
+    "a": "0x0000000000000000000000000000000000000000000000000000000000000001",
+    "b": "0x0000000000000000000000000000000000000000000000000000000000000001"
+  },
+  "docsUrl": "https://docs.stake.link/guides/security-and-audits/",
+  "docsQuote": "Every transaction needs six of eight signers.",
+  "mcpOutput": {
+    "schema": "pacta.protocol_lookup.v1",
+    "query": "stake.link",
+    "filters": { "chain": "ethereum", "kind": "all", "limit": 10 },
+    "totalCatalog": { "protocols": 58, "briefs": 8, "easAttestedProtocols": 38, "rpcObservedProtocols": 20 },
+    "totalMatches": 0,
+    "count": 0,
+    "results": [],
+    "catalog": "https://pacta.wtf/api/v1/lookup.json"
+  },
+  "apacheGrant": true,
+  "rules": [true, true, true, true]
+}
