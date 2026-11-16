@@ -1,0 +1,73 @@
+{
+  "slot": 4,
+  "issue": "https://github.com/Fractal-Neurons/pacta/issues/24",
+  "chainId": 42161,
+  "contractAddress": "0x03e8f708e9C85EDCEaa6AD7Cd06824CeB82A7E68",
+  "protocol": "GMX",
+  "tvlReference": "https://api.llama.fi/protocol/gmx",
+  "pactaSlug": null,
+  "blockNumber": 524807346,
+  "blockHash": "0x6c1ab6516c26aa5acc4e6d7c4f85f332bae7db885f982a626f33497aec0296ce",
+  "blockTimestamp": 1794848664,
+  "priorPin": null,
+  "castCommands": [
+    "cast call 0x03e8f708e9C85EDCEaa6AD7Cd06824CeB82A7E68 'COUNTING_MODE()(string)' --block 524807346 --rpc-url https://gateway.tenderly.co/public/arbitrum",
+    "cast call 0x03e8f708e9C85EDCEaa6AD7Cd06824CeB82A7E68 'COUNTING_MODE()(string)' --block 524807346 --rpc-url https://arb1.arbitrum.io/rpc",
+    "cast call 0x03e8f708e9C85EDCEaa6AD7Cd06824CeB82A7E68 'votingDelay()(uint256)' --block 524807346 --rpc-url https://gateway.tenderly.co/public/arbitrum",
+    "cast call 0x03e8f708e9C85EDCEaa6AD7Cd06824CeB82A7E68 'votingDelay()(uint256)' --block 524807346 --rpc-url https://arb1.arbitrum.io/rpc"
+  ],
+  "rpcOutputs": {
+    "a": "support=bravo&quorum=bravo (COUNTING_MODE), 86400 (votingDelay)",
+    "b": "support=bravo&quorum=bravo (COUNTING_MODE), 86400 (votingDelay)"
+  },
+  "docsUrl": "https://docs.gmx.io/docs/governance/proposal-process/",
+  "docsQuote": "Voting mechanism: Qualified majority (65% + 1 of the smallest token unit)",
+  "mcpOutput": {
+    "schema": "pacta.protocol_lookup.v1",
+    "query": "gmx",
+    "totalCatalog": {
+      "protocols": 74,
+      "briefs": 8,
+      "easAttestedProtocols": 62,
+      "rpcObservedProtocols": 12
+    },
+    "totalMatches": 0,
+    "count": 0,
+    "results": [],
+    "catalog": "https://pacta.wtf/api/v1/lookup.json",
+    "note": "GMX is not present anywhere in the live catalog (verified 2026-11-17 against lookup.json: 0 matches for 'gmx', and not present in protocols.json which lists 74 protocols); no easAttested, rpc_observed, or brief record exists. Target is unindexed.",
+    "coverage_gap_hint": "Target is not yet indexed or fully classified."
+  },
+  "apacheGrant": true,
+  "rules": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "evidence": {
+    "interpretation": "GMX's official docs (docs.gmx.io, HTTP 200) describe the DAO's four-phase proposal process. Phase 4 'Tally (Optional)' is the on-chain execution stage and lists six parameters: qualified-majority voting mechanism (65% + 1), quorum (view on Tally), 30,000-token proposal minimum, 24h voting delay, 5-day voting window, 24h execution delay. Five of those six parameters match the deployed GMX Governor on Arbitrum exactly: votingDelay()=86400 (24h), votingPeriod()=432000 (5 days), proposalThreshold()=30000e18 esGMX (30,000), and the governor's timelock 0x4bd1cdAab4254fC43ef6424653cA2375b4C94C0E (OZ TimelockController, listed as 'DAO Treasury' in GMX's own contract-addresses docs) has getMinDelay()=86400 (24h). The remaining parameter, the voting mechanism, does NOT match: COUNTING_MODE() at the pinned block returns 'support=bravo&quorum=bravo', the exact marker string of OpenZeppelin GovernorCountingSimple, under which proposal success is decided by simple majority (forVotes > againstVotes, i.e. 50%+1). No 65% threshold parameter exists anywhere in the governor's storage or logic; the contract is source-verified (Exact Match) on Arbiscan and implements the standard OZ counting module. The documented decision rule (65% qualified majority) therefore does not exist on chain: any proposal passing with 50-65% For votes succeeds on-chain contrary to the published rule.",
+    "chainOfControl": {
+      "governor": {
+        "address": "0x03e8f708e9C85EDCEaa6AD7Cd06824CeB82A7E68",
+        "name": "GMX Governor",
+        "version": "v2.0",
+        "token": "0x2A29D3a792000750807cc401806d6fd539928481 (esGMX)",
+        "timelock": "0x4bd1cdAab4254fC43ef6424653cA2375b4C94C0E",
+        "countingModeCommand": "cast call 0x03e8f708e9C85EDCEaa6AD7Cd06824CeB82A7E68 'COUNTING_MODE()(string)' --block 524807346 --rpc-url <rpc>",
+        "countingModeOutput": "support=bravo&quorum=bravo (identical on gateway.tenderly.co/public/arbitrum and arb1.arbitrum.io)",
+        "votingDelay": "86400 (both RPCs)",
+        "votingPeriod": "432000 (both RPCs)",
+        "proposalThreshold": "30000000000000000000000 = 30,000 esGMX (both RPCs)"
+      },
+      "timelock": {
+        "address": "0x4bd1cdAab4254fC43ef6424653cA2375b4C94C0E",
+        "getMinDelay": "86400 (both RPCs)"
+      }
+    },
+    "docsSecondaryQuote": "Phase 4: Tally (Optional): 'Voting mechanism: Qualified majority (65% + 1 of the smallest token unit) - Quorum: View current quorum on Tally - Minimum tokens to submit a proposal: 30,000 - Voting delay: 24 hours - Voting window: 5 days - Execution delay: 24 hours'",
+    "tvlNote": "DefiLlama (api.llama.fi/protocol/gmx) reports GMX TVL around $210M at research time (2026-11-17), far above the $15M slot-4 floor for unindexed protocols.",
+    "additionalObservation": "governor.quorum(block) returns 0 for all sampled blocks because the voting token's getPastTotalSupply returns 0 (esGMX carries no voting checkpoints). Flagged as an observation; the claim above rests on the documented 65% mechanism vs on-chain simple majority, which is deterministic at the pinned block.",
+    "docsCaveat": "The docs page is GMX's current live governance documentation (fetched 2026-11-17, HTTP 200). Because five of the six published Phase-4 parameters reproduce the on-chain governor/timelock values exactly, the page is describing this exact deployment, and the voting-mechanism line is a live doc-vs-chain divergence, not stale text about a retired contract."
+  }
+}
