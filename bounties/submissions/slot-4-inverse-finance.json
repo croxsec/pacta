@@ -1,0 +1,84 @@
+{
+  "slot": 4,
+  "issue": "https://github.com/Fractal-Neurons/pacta/issues/24",
+  "chainId": 1,
+  "contractAddress": "0x01ECA33e20a4c379Bd8A5361f896A7dd2bAE4ce8",
+  "protocol": "Inverse Finance (FiRM) BorrowController staleness sentinel",
+  "tvlReference": null,
+  "pactaSlug": "inverse-finance-firm",
+  "blockNumber": 26436347,
+  "blockHash": "0x30f4654ae91669206fc1bf86da665008668cb44e886c04d657917dabe27994eb",
+  "priorPin": "Pacta sprint-14 pin, surface 'inverse-firm-borrowcontroller-staleness-sentinel' (target: FiRM BorrowController 0x01ECA33e20a4c379Bd8A5361f896A7dd2bAE4ce8, Base EAS uid 0x8965ae6e51a78132a77eb14c0ac1c6cd1be357d6f261253efff28869478ae5b8): pinned block 26406106, hash 0xcb24dfb0b8af01dff9550fbbf6eb589b30d29b9625f41af56c188ae10d086ecf; pinned value stalenessThreshold[0xC45E9c231ab5D9Bd3F1131E7901B100D8D236C4d] = 0",
+  "castCommands": [
+    "cast call 0x01ECA33e20a4c379Bd8A5361f896A7dd2bAE4ce8 'stalenessThreshold(address)(uint256)' 0xC45E9c231ab5D9Bd3F1131E7901B100D8D236C4d --block 26436347 --rpc-url https://eth.drpc.org",
+    "cast call 0x01ECA33e20a4c379Bd8A5361f896A7dd2bAE4ce8 'stalenessThreshold(address)(uint256)' 0xC45E9c231ab5D9Bd3F1131E7901B100D8D236C4d --block 26436347 --rpc-url https://gateway.tenderly.co/public/mainnet"
+  ],
+  "rpcOutputs": {
+    "a": "86500",
+    "b": "86500"
+  },
+  "docsUrl": "https://pacta.wtf/protocols/inverse-finance-firm/",
+  "docsQuote": "Pacta protocols.json sprint-14 surface 'inverse-firm-borrowcontroller-staleness-sentinel' (targetLabel 'FiRM BorrowController', targetContract 0x01ECA33e20a4c379Bd8A5361f896A7dd2bAE4ce8): \"BorrowController stalenessThreshold 0-sentinel — queued 48h fix for sDOLA market\" (pinned block 26406106, value 0 for market 0xC45E9c231ab5D9Bd3F1131E7901B100D8D236C4d). Governing on-chain change: Timelock 0x926dF14a23BE491164dCF93f4c468A50ef659D5B ExecuteTransaction (logIndex 0xae) in tx 0xe3d36a6835f31673a80af3cd8bd197bc6d154b5a7798bfb77c9d5d2d5bd7f5a5, block 26411114 — setStalenessThreshold(0xC45E9c231ab5D9Bd3F1131E7901B100D8D236C4d, 86500), i.e. the pinned 0-sentinel no longer exists on chain.",
+  "mcpOutput": {
+    "schema": "pacta.protocol_lookup.v1",
+    "query": "inverse-finance-firm",
+    "totalMatches": 1,
+    "count": 1,
+    "catalog": "https://pacta.wtf/api/v1/protocols.json",
+    "checkedAt": "2026-11-18T02:15:00+08:00",
+    "results": [
+      {
+        "slug": "inverse-finance-firm",
+        "name": "Inverse Finance (FiRM)",
+        "chain": "ethereum",
+        "chainId": 1,
+        "classification": "mixed",
+        "controllerAddress": "0x926dF14a23BE491164dCF93f4c468A50ef659D5B",
+        "controllerKind": "timelock",
+        "primaryContract": "0x4b6c63E6a94ef26E2dF60b89372db2d8e211F1B7",
+        "easAttested": true,
+        "baseEasUids": [
+          "0x34049a2c64fe3355f8e325481234754c8422a48bb4784fed1d028fa40eb93058",
+          "0x8965ae6e51a78132a77eb14c0ac1c6cd1be357d6f261253efff28869478ae5b8"
+        ],
+        "sprints": [1, 14],
+        "driftedSurface": {
+          "id": "inverse-firm-borrowcontroller-staleness-sentinel",
+          "sprint": 14,
+          "surface": "BorrowController stalenessThreshold 0-sentinel — queued 48h fix for sDOLA market",
+          "targetContract": "0x01ECA33e20a4c379Bd8A5361f896A7dd2bAE4ce8",
+          "targetLabel": "FiRM BorrowController",
+          "blockNumber": 26406106,
+          "blockHash": "0xcb24dfb0b8af01dff9550fbbf6eb589b30d29b9625f41af56c188ae10d086ecf",
+          "pinnedValue": 0,
+          "liveBlockNumber": 26436347,
+          "liveBlockHash": "0x30f4654ae91669206fc1bf86da665008668cb44e886c04d657917dabe27994eb",
+          "liveValue": 86500,
+          "governingTx": "0xe3d36a6835f31673a80af3cd8bd197bc6d154b5a7798bfb77c9d5d2d5bd7f5a5",
+          "governingTxBlock": 26411114
+        },
+        "url": "https://pacta.wtf/protocols/inverse-finance-firm/"
+      }
+    ],
+    "note": "Indexed protocol (slug inverse-finance-firm, EAS-attested sprints 1+14). Sprint-14 surface pinned stalenessThreshold=0 for the scrvUSD-sDOLA FiRM market at block 26406106; the queued governance fix executed on-chain at block 26411114 (tx 0xe3d36a68...), so the live chain value at the fresh finalized block 26436347 is 86500 — a real post-snapshot control-plane parameter change on the published surface."
+  },
+  "apacheGrant": true,
+  "rules": [true, true, true, true],
+  "evidence": {
+    "interpretation": "Slot #4 option 1 (live chain-feed drift on an indexed protocol). Pacta's published feed pins, for the FiRM BorrowController surface, stalenessThreshold[scrvUSD-sDOLA market] = 0 at block 26406106 (sprint 14, EAS uid 0x8965ae6e...). The surface description itself noted a queued 48h governance fix. That fix was executed on-chain 16.7h after the pin: Timelock ExecuteTransaction in tx 0xe3d36a68... (block 26411114, status success) calling BorrowController.setStalenessThreshold(0xC45E9c231ab5D9Bd3F1131E7901B100D8D236C4d, 86500). Dual-RPC archive replay at the fresh finalized block 26436347 returns 86500 on both eth.drpc.org and gateway.tenderly.co/public/mainnet; the same call at the pinned block 26406106 returns 0 on both endpoints. The published feed field therefore no longer matches chain state: post-snapshot parameter drift, governed by the on-chain transaction above.",
+    "chainOfControl": {
+      "borrowController": "0x01ECA33e20a4c379Bd8A5361f896A7dd2bAE4ce8",
+      "operator": "Timelock 0x926dF14a23BE491164dCF93f4c468A50ef659D5B",
+      "governor": "GovernorMills 0xbeccb6bb0aa4ab551966a7e4b97cec74bb359bf6 (emitted its execution log in the same tx)",
+      "market": "0xC45E9c231ab5D9Bd3F1131E7901B100D8D236C4d (scrvUSD-sDOLA FiRM market; market.borrowController() == 0x01ECA33e20a4c379Bd8A5361f896A7dd2bAE4ce8, verified at block 26436347 on eth.drpc.org)",
+      "executionPath": "GovernorMills -> Timelock.executeTransaction -> BorrowController.setStalenessThreshold(market, 86500)"
+    },
+    "crossChecks": [
+      "Full probed set of 50 FiRM markets on the pinned BorrowController re-read pin-vs-now: exactly one key changed (this market, 0 -> 86500); all other values identical.",
+      "Morpho Blue singleton owner and Curve crvUSD ControllerFactory admin (neighboring indexed surfaces) re-read pin-vs-now: unchanged — no feed-wide RPC artifact.",
+      "Timelock payload decoded verbatim from the ExecuteTransaction event data: signature setStalenessThreshold(address,uint256), arg0 = 0xc45e9c231ab5d9bd3f1131e7901b100d8d236c4d, arg1 = 0x151e4 (= 86500).",
+      "Dual-RPC pin replay at block 26406106: 0 on eth.drpc.org and gateway.tenderly.co/public/mainnet (matches the published pinned value)."
+    ],
+    "honestCaveat": "The sprint-14 surface description already flagged the queued fix, so this drift was protocol-disclosed-in-advance rather than adversarial; the submission reports the objective post-snapshot change (pinned field 0 vs live chain 86500) with its governing transaction, as slot #4 option 1 defines. No exploit content: governance parameter observation only."
+  }
+}
